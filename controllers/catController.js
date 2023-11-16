@@ -2,7 +2,7 @@ const express = require("express");
 
 const cats = express.Router();
 
-const { getAllCats, getOneCat, newCat } = require("../queries/cat.js");
+const { getAllCats, getOneCat, newCat, deleteCat } = require("../queries/cat.js");
 
 //INDEX -all cats - /cats
 
@@ -35,6 +35,16 @@ cats.post("/", express.json(), async (req, res) => {
   res.status(200).json(cat);
 });
 
+// DELETE cats/:id
 
+cats.delete("/:id", async(req, res) => {
+  const id = req.params.id;
+  const deletedCat = await deleteCat(id);
+  if(deletedCat.id){
+    res.status(200).json(deletedCat)
+    } else {
+      res.status(404).json( { error: "Page Not Found" } )
+    }
+});
 
 module.exports = cats
