@@ -20,7 +20,7 @@ const getOneCat = async (id) => {
 
 const newCat = async (cat) => {
   try{
-    const createCat = await db.one("INSERT INTO cats (name, image, cat_id, gender, age, is_available, cost, description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8 ) RETURNING * ",
+    const createCat = await db.one("INSERT INTO cats (name, image, cat_id, gender, age, is_available, cost, description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8 ) RETURNING *",
      [
       cat.name, 
       cat.image, 
@@ -29,7 +29,7 @@ const newCat = async (cat) => {
       cat.age, 
       cat.is_available, 
       cat.cost, 
-      cat.description
+      cat.description,
     ]
     )
       return createCat;
@@ -47,6 +47,27 @@ const deleteCat = async (id) => {
      }
 };
 
+ const updateCat = async (id, cat) => {
+     try{
+       const updatedCat = await db.one("UPDATE cats SET name=$1, image=$2, cat_id=$3, gender=$4, age=$5, is_available=$6, cost=$7, description=$8 WHERE id=$9 RETURNING *",
+       [
+        cat.name,
+        cat.image,
+        cat.cat_id, 
+        cat.gender,
+        cat.age,
+        cat.is_available, 
+        cat.cost,
+        cat.description,
+        id,
+       ]
+       )
+       return updatedCat;
+     } catch(error) {
+       return error;
+     }
+ };
 
 
-module.exports = { getAllCats, getOneCat, newCat, deleteCat };
+
+module.exports = { getAllCats, getOneCat, newCat, deleteCat, updateCat };
