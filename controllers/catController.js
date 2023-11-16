@@ -2,7 +2,7 @@ const express = require("express");
 
 const cats = express.Router();
 
-const { getAllCats, getOneCat } = require("../queries/cat.js");
+const { getAllCats, getOneCat, newCat } = require("../queries/cat.js");
 
 //INDEX -all cats - /cats
 
@@ -15,7 +15,7 @@ cats.get("/", async (req, res) => {
    }
   });
 
-  // SHOW -get one cat /cats/:id
+  // SHOW -get one cat from the id /cats/:id
 
   cats.get("/:id", async (req, res) => {
     const id = req.params.id;
@@ -26,8 +26,14 @@ cats.get("/", async (req, res) => {
       res.status(404).json( { error: "Page Not Found" } );
     }
  });
-  
 
+ // POST - create a cat and then add it /cats
+  
+cats.post("/", express.json(), async (req, res) => {
+  const body = req.body;
+  const cat = await newCat(body);
+  res.status(200).json(cat);
+});
 
 
 

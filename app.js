@@ -13,7 +13,7 @@ const catController = require("./controllers/catController");
 // middleware
 app.use(cors());
 app.use("/cats", catController);
-app.use(express.json());
+// app.use(express.json());
 
 
 app.get("/", (req, res) => {

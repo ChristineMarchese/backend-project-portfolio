@@ -21,9 +21,11 @@ const getOneCat = async (id) => {
 const newCat = async (cat) => {
   try{
     const createCat = await db.one("INSERT INTO cats (name, image, cat_id, gender, age, is_available, cost, description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8 ) RETURNING * ",
-     
-  } catch(error) {
-    return error;
+     [cat.name, cat.image, cat.cat_id, cat.gender, cat.age, cat.is_available, cat.cost, cat.description]
+    )
+      return createCat;
+    } catch(error) {
+      return error;
   }
 }
 
