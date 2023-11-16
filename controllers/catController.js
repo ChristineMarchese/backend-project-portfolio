@@ -4,6 +4,8 @@ const cats = express.Router();
 
 const { getAllCats, getOneCat, newCat, deleteCat, updateCat } = require("../queries/cat.js");
 
+const { checkName, checkBoolean } = require("../validations/checkCats")
+
 //INDEX -all cats - /cats
 
 cats.get("/", async (req, res) => {
@@ -29,7 +31,7 @@ cats.get("/", async (req, res) => {
 
  // POST - create a cat and then add it /cats
   
-cats.post("/", express.json(), async (req, res) => {
+cats.post("/", express.json(), checkName, checkBoolean, async (req, res) => {
   const body = req.body;
   const cat = await newCat(body);
   res.status(200).json(cat);
@@ -49,7 +51,7 @@ cats.delete("/:id", async (req, res) => {
 
 // PUT cats/:id
 
-cats.put('/:id', express.json(), async (req, res) => {
+cats.put('/:id', express.json(), checkName, checkBoolean, async (req, res) => {
   const id = req.params.id;
   const body = req.body;
   const updatedCat = await updateCat(id, body)
