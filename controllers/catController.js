@@ -30,7 +30,7 @@ cats.get("/", async (req, res) => {
  });
 
  // POST - create a cat and then add it /cats
-  
+
 cats.post("/", express.json(), checkName, checkBoolean, async (req, res) => {
   const body = req.body;
   const cat = await newCat(body);
@@ -58,7 +58,7 @@ cats.put('/:id', express.json(), checkName, checkBoolean, async (req, res) => {
     if(updatedCat.id) {
      res.status(200).json(updatedCat)
     } else {
-     res.status(404).json( { error: "Page Not Found"})
+     res.status(404).json( { error: "Page Not Found" } )
     }
 })
 

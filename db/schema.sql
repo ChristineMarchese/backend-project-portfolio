@@ -2,8 +2,9 @@ DROP DATABASE IF EXISTS cats_dev;
 CREATE DATABASE cats_dev;
 
 \c cats_dev;
+ DROP TABLE IF EXISTS cats;
 
-CREATE TABLE cats (
+  CREATE TABLE cats (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     image TEXT,
@@ -14,4 +15,5 @@ CREATE TABLE cats (
     cost NUMERIC,
     description TEXT
 );
+
 
